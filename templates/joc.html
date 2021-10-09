@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% block title %} Jugar {% endblock %}
+{% block content %}
+ 
+
+
+    
+    
+    
+    <section>
+        <br>
+        <h2 class="text-center">EL JUEGO: {{nomnenjoc}}</h2>
+        <h5 class="text-center">¿Le entiendes cuando habla? ¡Ponte a prueba!</h5>
+        <br>
+
+        
+                    
+        <div class="container">
+            <div class="m-0 row justify-content-center">
+                <div class="col-auto bg-light p-5 text-center">
+
+                    
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages%}
+                        <div class="alert alert-dark" role="alert">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    
+                    
+                    {% if totalparaules < 6 %}
+                        <h6>Necesitas al menos 6 palabras para jugar</h6>
+                    
+                    {% else %}
+                    
+                        {% if compteenrere == 5 %}
+                            <h4>1/5</h4>
+                        {% elif compteenrere == 4 %}
+                            <h4>2/5</h4>
+                        {% elif compteenrere == 3 %}
+                            <h4>3/5</h4>
+                        {% elif compteenrere == 2 %}
+                            <h4>4/5</h4>
+                        {% elif compteenrere == 1 %}
+                            <h4>5/5</h4>
+                        
+                        {% endif %}
+                        
+                        {% if compteenrere == 0 %}
+                            <p>Has acertado {{marcador}} de 5</p>
+                            
+                            {% if marcador == '0' %}
+                                <p>¡No conoces nada su vocabulario! Tienes que estar más atento...</p>
+                                <br>
+                            {% elif marcador == '1' %}
+                                <p>Alguna palabra le has escuchado, pero aún te queda mucho para descubrir su amplio vocabulario</p>
+                                <br>
+                            {% elif marcador == '2' %}
+                                <p>Estás en el buen camino. Pon la oreja y descubrirás más palabras</p>
+                                <br>
+                            {% elif marcador == '3' %}
+                                <p>Tienes un buen conocimiento de su lenguaje, pero aún puedes mejorar</p>
+                                <br>
+                            {% elif marcador == '4' %}
+                                <p>¡Felicidades! Eres todo un experto de su lenguaje. Solo te queda un poco para el sobresaliente</p>
+                                <br>
+                            {% elif marcador == '5' %}
+                                <p>¡Has hecho un pleno de respuestas, guau! Esto significa que, seguramente, eres el papa o la mama. ¡Felicitades!</p>
+                                <br>
+                            {% endif %}
+                            <br>
+                            <p><a href="joc"><button type="button" class="btn btn-success" autofocus>Jugar otra vez</button></a></p>
+                            
+                        {% else %}
+        
+                        
+                            {% if arxiualeatori != '' %}
+                            <p>¿Qué significa {{ aleatori }}? &nbsp<a href="/audios/{{arxiualeatori}}" target="_blank" onclick="window.open(this.href, this.target, 'width=1,height=1'); return false;"><img src="/static/play.png"/></a></p>
+                            {% else %}
+                            <p>¿Qué significa {{ aleatori }}?</p>
+                            {% endif %}
+
+                                
+                                <form action="joc" method="POST" class='form'>
+                                    <p>
+                                    <input type="text" id="quevoldir" name="quevoldir" placeholder="No lo sé" autofocus>
+                                    <input type="hidden" name="marcador" value="{{marcador}}">
+                                    <input type="hidden" name="compteenrere" value="{{compteenrere}}">
+                                    <input type="hidden" name="aleatori" value="{{aleatori}}">
+                                    </p>
+                                    <input type="submit" value="Enviar">
+                                </form>
+                        {% endif %}
+                    {% endif %}  
+                      
+                </div>
+            </div>
+        </div>
+    
+    </section>
+
+{% endblock %}

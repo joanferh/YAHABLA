@@ -1,0 +1,70 @@
+{% extends 'layoutnoregister.html' %}
+{% block title %} Recuperar contraseña {% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-dark" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div>
+                <h5>Introduce una nueva contraseña</h5>
+            </div>
+
+            <br>
+
+            <form action="" method="POST">
+                
+                
+                <div class="form-row">
+                
+                    <input type="password" name="noupwd" id="noupwd" placeholder="Nueva contraseña" autofocus required>
+                    <button class="btn btn-white" type="button" onclick="mostrarContrasena2()"><img src="../static/ver.png"></button>
+                
+                </div>
+            
+                <br>
+                <div class="form-row">
+                    <input type="password" id="noupwd2" name="noupwd2" placeholder='Repetir nueva contraseña"' required>
+                    <button class="btn btn-white" type="button" onclick="mostrarContrasena3()"><img src="../static/ver.png"></button>
+                
+                </div>
+                
+                <br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+</div>  
+
+<script>
+    function mostrarContrasena2(){
+        var tipo = document.getElementById("noupwd");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+        }else{
+            tipo.type = "password";
+        }
+    }
+</script>
+<script>
+    function mostrarContrasena3(){
+        var tipo = document.getElementById("noupwd2");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+        }else{
+            tipo.type = "password";
+        }
+    }
+</script>
+
+
+    
+{% endblock %}

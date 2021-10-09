@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block title %} ¡Ya habla! {% endblock %}
+{% block content %}
+
+
+<div class="container">
+
+
+  <h2><p style="text-align:center">¡YA HABLA!</p></h2>
+  <h5><p style="text-align:center">Guarda sus primeras palabras, solo se aprende a hablar una vez en la vida</p></h5>
+    
+    <div class="col-auto bg-light p-5 text-center m-0 row justify-content-center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+          <div class="alert alert-dark" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-3"> <a href="/formulari"><img src="/static/anadir gran.png" alt="Afegir"><p></p></a><button type="button" class="btn btn-dark">
+          <a href="/formulari" style="text-decoration:none; color: whitesmoke; ">AÑADE</a></button><p></p><p></p></div>
+           
+          <div class="col-12 col-sm-6 col-md-6 col-lg-3"><a href="/diccionari"><img src="/static/diccionario gran.png" alt="Diccionari"><p></p></a><button type="button" class="btn btn-dark">
+          <a href="/diccionari" style="text-decoration:none; color: whitesmoke; ">CONSULTA</a></button><p></p><p></p></div>
+
+          <div class="col-12 col-sm-6 col-md-6 col-lg-3"><a href="/joc"><img src="/static/jugar gran.png" alt="Jugar"><p></p></a><button type="button" class="btn btn-dark">
+          <a href="/joc" style="text-decoration:none; color: whitesmoke; ">JUEGA</a></button><p></p><p></p></div>
+
+          <div class="col-12 col-sm-6 col-md-6 col-lg-3"><a href="/calaix"><img src="/static/calaix gran.png" alt="Calaix"><p></p></a><button type="button" class="btn btn-dark">
+          <a href="/calaix" style="text-decoration:none; color: whitesmoke; ">CAJÓN</a></button><p></p><p></p></div>
+  
+
+        </div>
+        
+    </div>
+</div> 
+ 
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block title %} Perfil{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-dark" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            
+            <div>
+                <h5>Afegir foto</h5>
+                <br>
+            
+                    
+                    <tr>
+                        <form action="" method="POST" class='form' enctype="multipart/form-data">
+                        <input type="file" id="foto" name="foto">
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <input type="submit" value="Enviar">
+                    </tr>
+             
+            </div>  
+        </div>
+    </div>
+</div>  
+
+
+
+    
+{% endblock %}

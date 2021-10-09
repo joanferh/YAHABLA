@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %} El diccionario {% endblock %}
+{% block content %}
+<h2 class="text-center">EL DICCIONARIO</h2>
+
+<br>
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-4 text-center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <p>Seguro que quieres eliminar {{message}}?</p>
+                <form action="eliminar" method="POST" class='form'></form>
+                <a href="/eliminar/{{id}}"><button class="btn btn-primary" type="submit" name="si">Si</button></a>
+                <a href="/diccionari"><button class="btn btn-primary" type="submit" name="no">No</button></a>
+                </form>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+       
+    </div>
+</div>
+
+{% endblock %}

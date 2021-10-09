@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block title %} Afegir paraules {% endblock %}
+{% block content %}
+<br>
+<h2 class="text-center">AÑADIR</h2>
+<h5 class="text-center">Amplia el diccionario con nuevas palabras</h5>
+<br>
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-dark" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+            <form action="afegir" method="POST" class='form' enctype="multipart/form-data">
+                
+                    <label for id="quediu">¿Qué dice?</label>
+                    <input type="text" id="quediu" name="quediu" value= "{{quediu}}" required autofocus>
+                <br>
+                <br>
+                    <label for id="quevoldir">¿Qué quiere decir?</label>
+                    <input type="text" id="quevoldir" name="quevoldir" value= "{{quevoldir}}" required>
+                <br>
+                <br>
+                    <input type="file" id="audio" name="audio">
+                    <br>
+                    <p><i>*opcional</i></p>
+                
+
+                <input type="submit" value="Enviar">
+                
+            </form>
+        </div>
+    </div>
+</div>  
+    
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% block title %} Perfil{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-dark" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            
+            <div>   
+                    
+                    <tr>
+                        <td>Nombre del niño/a: 
+                            
+                            {% if not nomnen.1 %}
+                            <form action="/profile" method="POST">
+                                <input type="text" id="kidname" name="kidname" placeholder="Nombre" autofocus >
+                                <input type="submit" value="Enviar">
+                            </form>
+
+                            {% else %}
+                            {{ nomnen.1 }} <a href="{{url_for('editname') }}"><img src="/static/editar.png"/></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td>
+                            {% if not nomnen.2 %}
+                            <a href="{{url_for('uploadphoto')}}"><img src="/static/avatar.png"></a>
+                            <a href="{{url_for('uploadphoto')}}"><img src="/static/signomas.png"></a>
+                            {% else %}
+                            <img src="/images/{{nomnen.2}}">&nbsp<a href="{{url_for('deletephoto')}}"><img src="/static/eliminar.png"></a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    <br>
+                    <br>
+
+                    <tr>
+                        <td>Email: {{ account.1 }}</td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td><a href = '/canvipwd'><button type="button" class="btn btn-outline-dark">Cambiar contraseña</button></a></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href = '/logout'><button type="button" class="btn btn-outline-dark">Cerrar sesión</button></a></td>
+                    </tr>
+             
+            </div>  
+        </div>
+    </div>
+</div>  
+
+
+
+    
+{% endblock %}

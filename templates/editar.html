@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block title %} Editar {% endblock %}
+{% block content %}
+
+<h2 class="text-center">Editar palabras</h2>
+<br>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages%}
+    <div class="alert alert-dark" role="alert">
+        {{message}}
+    </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="" method="POST" class='form' enctype="multipart/form-data">
+                
+            <label for id="quediu">Què diu?</label>
+            <input type="text" id="quediu" name="quediu" value= "{{quediu}}" required autofocus>
+        <br>
+        <br>
+            <label for id="quevoldir">Què vol dir?</label>
+            <input type="text" id="quevoldir" name="quevoldir" value= "{{quevoldir}}" required>
+        <br>
+        <br>
+            {% if arxiu == '' %}
+                <input type="file" id="audio" name="audio">
+                <br>
+                <p><i>*opcional</i></p>
+            {% else %}
+                <a href="/audios/{{arxiu}}" target="_blank" onclick="window.open(this.href, this.target, 'width=1,height=1'); return false;"><img src="/static/play.png"/></a> {{ arxiu }} <a href="/eliminaraudio/{{arxiu}}"><img src="/static/papeleranegra.png" height="30" width="30"/></a>
+            {% endif %}
+        
+        <br>
+        <br>
+        <input type="submit" value="Enviar">
+        
+
+        
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'layoutnoregister.html' %}
+{% block title %} Recuperar contraseña{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-dark" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <h5>Recuperar contraseña</h5>
+            <p></p>
+           
+            <form action="/pwdrecovery" method="POST">
+                
+                <input type="email" id="email" name="email" placeholder='Introduce tu email'value="{{email}}" autofocus >
+               
+
+                <input type="submit" value="Enviar">
+            </form>
+           
+        </div>
+    </div>
+</div>  
+<script>
+    function mostrarContrasena(){
+        var tipo = document.getElementById("password");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+        }else{
+            tipo.type = "password";
+        }
+    }
+</script>
+<script>
+    function mostrarContrasena2(){
+        var tipo = document.getElementById("pwd2");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+        }else{
+            tipo.type = "password";
+        }
+    }
+</script>
+
+
+    
+{% endblock %}

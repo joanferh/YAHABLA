@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% block title %} Perfil{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-5 text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-dark" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            
+            <div>
+                
+                    <tr>
+                        <td>Nombre del niño/a: 
+                                                      
+                            <form action="/profile/editname" method="POST">
+                                <input type="text" id="kidname" name="kidname" value="{{ nomnen.1 }}" autofocus >
+                                <input type="submit" value="Enviar">
+                            </form>
+
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            {% if not nomnen.2 %}
+                            <a href="{{url_for('uploadphoto')}}"><img src="/static/avatar.png"></a>
+                            <a href="{{url_for('uploadphoto')}}"><img src="/static/signomas.png"></a>
+                            {% else %}
+                            <img src="/images/{{nomnen.2}}">&nbsp<a href="{{url_for('deletephoto')}}"><img src="/static/eliminar.png"></a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    <br>
+                    <br>
+                    
+                    <tr>
+                        <td>Email: {{ account.1 }}</td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td><a href = '/canvipwd'><button type="button" class="btn btn-outline-dark">Cambiar contraseña</button></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href = '/logout'><button type="button" class="btn btn-outline-dark">Cerrar sesión</button></a></td>
+                    </tr>
+                
+            </div>  
+        </div>
+    </div>
+</div>  
+
+
+
+    
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block title %} El diccionario {% endblock %}
+{% block content %}
+<h2 class="text-center">EL DICCIONARIO</h2>
+<h5 class="text-center">Tu hijo/a tiene un diccionario único en el mundo<</h5>
+<h5 class="text-center">{{ totalparaules }} palabras&nbsp;&nbsp;<a href="formulari"><button type="button" class="btn btn-light" value="Afegir paraula"><img src="static/anadir.png"></button></a></h5>
+
+<br>
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-1 text-center">
+        <div class='container-sm'>
+            <table class='table table-light'>
+                <thead class="table-light">
+                    <tr>
+                        <td colspan="4"><h6>Últimas palabras añadidas</h6></td>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>{% for ultimaparaula in ultimesalreves %}
+                        <td>{{ultimaparaula}}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-1 text-center">
+        <div class='container-sm'>
+            <table class='table table-light'>
+                
+                <tbody>
+                    <form action="diccionari" method="POST">
+                        Solo palabras con audio&nbsp;&nbsp;<input type="checkbox" id="audios" name="audios" onchange="this.form.submit()" checked>
+                        
+                    </form>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<br>
+
+<div class="container">
+    <div class="m-0 row justify-content-center">
+        <div class="col-auto bg-light p-1 text-center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-dark" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class='container-sm'>
+            <table class='table table-hover'>
+                <thead class="table-light">
+                    <tr>
+                        <td></td>
+                        <td><h6>Qué dice</h6></td>
+                        <td><h6>Qué quiere decir</h6></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for definicio in definicions %}
+                        <tr>
+                            {% if definicio.3 == '' %}
+                                <td><img src="/static/altavozmudo.png" ></td>
+                            
+                            {% else %}
+                                <td><a href="/audios/{{definicio.3}}" target="_blank" onclick="window.open(this.href, this.target, 'width=1,height=1'); return false;"><img src="/static/play.png"/></a></td>
+                            
+                            {% endif %}
+                            
+                            <td>{{ definicio.1 }}</td>
+                            <td>{{ definicio.2 }}</td>
+                            
+                                
+                                
+                            <td>
+                                <a href=/editar/{{definicio.0}} style="text-decoration:none; color: rgb(60, 111, 223); font-style: oblique;"><img src="/static/editar.png" alt="editar"/></a>
+                                <a href=/confirmareliminar/{{definicio.0}} style="text-decoration:none; color: rgb(60, 111, 223); font-style: oblique;"><img src="/static/eliminar.png" alt="editar"/></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                       
+                        
+                        
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
