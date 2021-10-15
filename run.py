@@ -36,6 +36,11 @@ app.config['SECRET_KEY']='mysecretkey'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+'''class ArxiuMassaGran(HTTPException):
+    code = 413
+    description = "<p>L'àudio ha de no pot pesar més de 10MB. Si us plau, torna enrere i torna-ho a intentar</p>"
+raise RequestEntityTooLarge(description="L'àudio ha de no pot pesar més de 10MB. Si us plau, torna enrere i torna-ho a intentar")'''
 
 
 
@@ -55,8 +60,14 @@ resize = flask_resize.Resize(app)'''
 mail = Mail()
 mail.init_app(app)
 
+@app.errorhandler(413)
+def request_entity_too_large(error):
+    return 'El tamaño del archivo no puede pasar los 5mb. Vuelve atrás y selecciona uno más pequeño, por favor', 413
 
-
+'''@app.errorhandler(413)
+def largefile_error(e):
+    flash('El archivo no puede pesar más de 5mb')
+    return redirect(url_for("profile")), 413'''
 
 @app.route('/')
 def inici():
@@ -167,6 +178,7 @@ def allowed_file_img(filename):
 
 def allowed_size(filename):
     sizefile = os.stat('filename').st_size
+    return sizefile
     
 @app.route('/afegir',methods=['GET','POST'])    
 def afegir():
@@ -223,10 +235,16 @@ def afegir():
                 return redirect(url_for('consultar'))
             
             if arxiu and allowed_file(arxiu.filename):
+
+                quediu = request.form['quediu'].capitalize().strip()
+                quevoldir = request.form['quevoldir'].capitalize().strip()
+                quediu = quediu.replace("'","´") 
+                quevoldir = quevoldir.replace("'","´") 
+                
                 print(arxiu)
                 #renombrem l'arxiu original sumant-li el temps de creació (en segons) perquè tingui un nom únic
                 data = str(datetime.now())
-                arxiusegur = secure_filename(data + '_' + arxiu.filename)
+                arxiusegur = secure_filename(quediu + '_' + quevoldir + '_' + data + '_' + arxiu.filename)
                 
                 print(arxiu.filename)
                 print(arxiusegur)
@@ -239,11 +257,7 @@ def afegir():
                 os.rename(arxiusensetemps,arxiuambtemps)'''
 
                 
-                quediu = request.form['quediu'].capitalize().strip()
-                quevoldir = request.form['quevoldir'].capitalize().strip()
-                quediu = quediu.replace("'","´") 
-                quevoldir = quevoldir.replace("'","´") 
-                
+
 
                 con = connectDatabase()
                 cursor = con.cursor()
