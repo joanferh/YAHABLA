@@ -4,7 +4,8 @@
 
 <div class="container">
     <div class="m-0 row justify-content-center">
-        <div class="col-auto bg-light p-5 text-center">
+        <div class="col-auto bg-light p-1 text-center">
+
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages%}
@@ -14,41 +15,51 @@
             {% endfor %}
             {% endif %}
             {% endwith %}
-            <div class="links">
-                <a href=" {{url_for('login') }}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Login</a>
-                <a href="#" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">SignUp</a>
+
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <img src="static/infografia.png" width='370' height='300'>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="links">
+                        <a href=" {{url_for('login') }}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Login</a>
+                        <a href="#" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">SignUp</a>
+                    </div>
+
+                    <br>
+
+                    <form action="/signup" method="POST">
+
+                        <input type="email" id="email" name="email" placeholder='email'value="{{email}}" autofocus >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                        <br>
+                        <br>
+
+                        <div class="form-row">
+
+                            <input type="password" name="pwd" id="password" placeholder="Contraseña">
+                            <button class="btn btn-white" type="button" onclick="mostrarContrasena()"><img src="static/ver.png"></button>
+
+                        </div>
+
+                        <br>
+                        <div class="form-row">
+                            <input type="password" id="pwd2" name="pwd2" placeholder='Repetir contraseña'>
+                            <button class="btn btn-white" type="button" onclick="mostrarContrasena2()"><img src="static/ver.png"></button>
+
+                        </div>
+
+                        <br>
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
             </div>
-
-            <br>
-
-            <form action="/signup" method="POST">
-                
-                <input type="email" id="email" name="email" placeholder='email'value="{{email}}" autofocus >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                
-                <br>
-                <br>
-                
-                <div class="form-row">
-                
-                    <input type="password" name="pwd" id="password" placeholder="Contraseña">
-                    <button class="btn btn-white" type="button" onclick="mostrarContrasena()"><img src="static/ver.png"></button>
-                
-                </div>
-            
-                <br>
-                <div class="form-row">
-                    <input type="password" id="pwd2" name="pwd2" placeholder='Repetir contraseña'>
-                    <button class="btn btn-white" type="button" onclick="mostrarContrasena2()"><img src="static/ver.png"></button>
-                
-                </div>
-                
-                <br>
-                <input type="submit" value="Enviar">
-            </form>
-
         </div>
     </div>
-</div>  
+</div>
 <script>
     function mostrarContrasena(){
         var tipo = document.getElementById("password");
@@ -71,7 +82,4 @@
 </script>
 
 
-
-
-    
 {% endblock %}
