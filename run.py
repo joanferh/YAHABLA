@@ -983,7 +983,7 @@ def login():
                     session['id'] = account[0]
                     session['email'] = account[1]
                     # Redirect to home page
-                    flash('¡Bienvenido!')
+                    '''flash('¡Bienvenido!')'''
                     return render_template('inici.html')
                 flash('Email o contraseña incorrectas')
                 return render_template('login.html')
