@@ -25,6 +25,8 @@ from PIL import Image
 def connectDatabase():
     return pymysql.connect(host='localhost', user = 'root', password = '', database = 'diccionari')
     '''return pymysql.connect(host='sql11.freemysqlhosting.net', user = 'sql11440739', password = 'Yv3qDs7JI4', database = 'sql11440739')'''
+    '''return pymysql.connect(host='yahabla.mysql.pythonanywhere-services.com', user = 'yahabla', password = '43552115gGg.', database = 'yahabla$diccionari')'''
+
 
 UPLOAD_FOLDER = './audios'
 UPLOAD_FOLDER_IMG = './images'
