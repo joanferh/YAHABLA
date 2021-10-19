@@ -305,6 +305,7 @@ def get_file(arxiusegur):
 def get_file_img(fotosegura):
     if 'loggedin' in session:
         return send_from_directory(UPLOAD_FOLDER_IMG, fotosegura)
+        #return send_from_directory("../images", fotosegura)
     return redirect(url_for ('login'))
 
 @app.route('/confirmareliminar/<id>')
