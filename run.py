@@ -300,14 +300,14 @@ def afegir():
 def get_file(arxiusegur):
     if 'loggedin' in session:
         return send_from_directory(UPLOAD_FOLDER, arxiusegur)
-        #return send_from_directory("../audios", arxiusegur)
+        #return send_from_directory("../yahabla/audios", arxiusegur)
     return redirect(url_for ('login'))
 
 @app.route('/images/<fotosegura>')
 def get_file_img(fotosegura):
     if 'loggedin' in session:
         return send_from_directory(UPLOAD_FOLDER_IMG, fotosegura)
-        #return send_from_directory("../images", fotosegura)
+        #return send_from_directory("../yahabla/images", fotosegura)     
     return redirect(url_for ('login'))
 
 @app.route('/confirmareliminar/<id>')
@@ -357,10 +357,10 @@ def eliminar(id):
 
         #esborrar l'arxiu de la carpeta 'audios'
         # File location
-        location = "audios"
+        '''location = "audios"'''
         # Path
         if id4 != '':
-            path = os.path.join(location, id4)
+            path = os.path.join(UPLOAD_FOLDER, id4)
             # Remove the file
             # 'file.txt'
             os.remove(path)
@@ -524,9 +524,9 @@ def eliminaraudio(id):
     
         #esborrar l'arxiu de la carpeta 'audios'
         # File location
-        location = "audios"
+        '''location = "audios"'''
         # Path
-        path = os.path.join(location, id)
+        path = os.path.join(UPLOAD_FOLDER, id)
         # Remove the file
         os.remove(path)
         
@@ -805,10 +805,10 @@ def eliminarcalaix(id):
 
         #esborrar l'arxiu de la carpeta 'audios'
         # File location
-        location = "audios"
+        '''location = "audios"'''
         # Path
         if id4 != '':
-            path = os.path.join(location, id4)
+            path = os.path.join(UPLOAD_FOLDER, id4)
             # Remove the file
             # 'file.txt'
             os.remove(path)
@@ -1210,9 +1210,9 @@ def deletephoto():
     
         #esborrar l'arxiu de la carpeta 'images'
         # File location
-        location = "images"
+        '''location = "images"'''
         # Path
-        path = os.path.join(location, nomnen[2])
+        path = os.path.join(UPLOAD_FOLDER_IMG, nomnen[2])
         # Remove the file
         os.remove(path)
         
