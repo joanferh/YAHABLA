@@ -39,12 +39,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-'''class ArxiuMassaGran(HTTPException):
-    code = 413
-    description = "<p>L'àudio ha de no pot pesar més de 10MB. Si us plau, torna enrere i torna-ho a intentar</p>"
-raise RequestEntityTooLarge(description="L'àudio ha de no pot pesar més de 10MB. Si us plau, torna enrere i torna-ho a intentar")'''
-
-
 
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -53,10 +47,6 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = "joanferrerhernandez@gmail.com"
 app.config['MAIL_PASSWORD'] = "43552114gGg"
 
-'''app = Flask.Flask(__name__)
-app.config['RESIZE_URL'] = 'localhost'
-app.config['RESIZE_ROOT'] = './images'
-resize = flask_resize.Resize(app)'''
 
 
 mail = Mail()
@@ -67,10 +57,6 @@ def request_entity_too_large(error):
     flash('El archivo no puede pesar más de 5mb')
     return 'El tamaño del archivo no puede pasar los 5mb. Vuelve atrás y selecciona uno más pequeño, por favor', 413
 
-'''@app.errorhandler(413)
-def largefile_error(e):
-    flash('El archivo no puede pesar más de 5mb')
-    return redirect(url_for("profile")), 413'''
 
 @app.route('/')
 def inici():
