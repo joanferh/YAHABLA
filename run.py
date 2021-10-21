@@ -592,7 +592,7 @@ def joc():
         print(compteenrere)
 
         
-        return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules, nomnenjoc=nomnenjoc)
+        return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
     return redirect(url_for ('login'))
 
 @app.route('/joc', methods=['POST'])
