@@ -30,7 +30,9 @@ def connectDatabase():
 
 UPLOAD_FOLDER = './audios'
 UPLOAD_FOLDER_IMG = './images'
-ALLOWED_EXTENSIONS = {'ogg', 'mp3', 'wma', 'aac', 'wav', 'opus', 'oga'}
+'''UPLOAD_FOLDER = './yahabla/audios'
+UPLOAD_FOLDER_IMG = './yahabla/images' '''
+ALLOWED_EXTENSIONS = {'ogg', 'mp3', 'wma', 'aac', 'wav', 'opus', 'oga',''}
 ALLOWED_EXTENSIONS_IMG = {'jpg', 'jpeg', 'png', 'tiff'}
 
 app = Flask(__name__)
@@ -41,9 +43,10 @@ app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USERNAME'] = "joanferrerhernandez@gmail.com"
 app.config['MAIL_PASSWORD'] = "43552114gGg"
 
