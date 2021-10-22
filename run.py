@@ -606,7 +606,6 @@ def jugant():
         cursor.execute(sql)
         nomnen = cursor.fetchone()
         con.close()
-        nomnenjoc=nomnen[1]
 
         if request.method == 'POST':
             quevoldir = request.form['quevoldir'].capitalize().strip()
@@ -684,7 +683,7 @@ def jugant():
             arxiualeatori = diccionarideltxt[aleatori]
         print(arxiualeatori)
         
-        return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules, nomnenjoc=nomnenjoc)
+        return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
 
     return redirect(url_for ('login'))
 
