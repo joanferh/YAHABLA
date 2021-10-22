@@ -43,12 +43,12 @@ app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 
-app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_SERVER'] = "smtp.ionos.es"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USERNAME'] = "joanferrerhernandez@gmail.com"
-app.config['MAIL_PASSWORD'] = "43552114gGg"
+app.config['MAIL_USERNAME'] = "yahabla@yahabla.com"
+app.config['MAIL_PASSWORD'] = "43552114gGg."
 
 
 
@@ -1389,7 +1389,7 @@ def pwdrecovery():
             get_token()
             send_mail(account)
             print('mail enviat')
-            flash('Revisa la bandeja de entrada')
+            flash('Revisa la bandeja de entrada (o la carpeta de spam)')
         else:
             flash('Este email no está registrado')
     return render_template('pwdrecovery.html')
