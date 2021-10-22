@@ -541,7 +541,6 @@ def joc():
         cursor.execute(sql)
         nomnen = cursor.fetchone()
         con.close()
-        nomnenjoc=nomnen[1]
 
         con = connectDatabase()
         cursor = con.cursor()
