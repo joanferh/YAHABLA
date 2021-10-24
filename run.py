@@ -17,6 +17,7 @@ from threading import Thread
 import jwt
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from PIL import Image
+import smtplib
 
 
 
@@ -43,12 +44,18 @@ app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 
+'''app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = "yahablaweb@gmail.com"
+app.config['MAIL_PASSWORD'] = "43552114gGg."
+'''
 app.config['MAIL_SERVER'] = "smtp.ionos.es"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USERNAME'] = "yahabla@yahabla.com"
-app.config['MAIL_PASSWORD'] = "43552114gGg."
+app.config['MAIL_PASSWORD'] = "43552114gGg.."
+
 
 
 
@@ -1351,7 +1358,7 @@ def send_mail(account):
     
     
 
-def get_token(expires_sec=500):
+def get_token(expires_sec=28800):
     serial=Serializer(app.config['SECRET_KEY'], expires_in = expires_sec)
     return serial.dumps({'user_id': account[0]}).decode('utf-8')
     
@@ -1389,7 +1396,7 @@ def pwdrecovery():
             get_token()
             send_mail(account)
             print('mail enviat')
-            flash('Revisa la bandeja de entrada (o la carpeta de spam)')
+            flash('Revisa la bandeja de entrada (o la carpeta de spam). El mail puede tardar unos minutos. Si no lo recibes, contactanos en yahabla@yahabla.com y te lo enviaremos lo antes posible')
         else:
             flash('Este email no está registrado')
     return render_template('pwdrecovery.html')
