@@ -1396,7 +1396,8 @@ def pwdrecovery():
             get_token()
             send_mail(account)
             print('mail enviat')
-            flash('Revisa la bandeja de entrada (o la carpeta de spam). El mail puede tardar unos minutos. Si no lo recibes, contactanos en yahabla@yahabla.com y te lo enviaremos lo antes posible')
+            flash('Revisa la bandeja de entrada (o la carpeta de spam). El mail puede tardar unos minutos')
+            flash('Si no lo recibes, contactanos en yahabla@yahabla.com y te lo enviaremos lo antes posible')
         else:
             flash('Este email no está registrado')
     return render_template('pwdrecovery.html')
