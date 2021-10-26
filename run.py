@@ -44,17 +44,17 @@ app.config['UPLOAD_FOLDER_IMG'] = UPLOAD_FOLDER_IMG
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 
-app.config['MAIL_SERVER'] = "smtp.gmail.com"
+'''app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = "yahablaweb@gmail.com"
-app.config['MAIL_PASSWORD'] = "43552114gGg."
+app.config['MAIL_PASSWORD'] = "43552114gGg."'''
 
-'''app.config['MAIL_SERVER'] = "smtp.ionos.es"
+app.config['MAIL_SERVER'] = "smtp.ionos.es"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = "yahabla@yahabla.com"
-app.config['MAIL_PASSWORD'] = "43552114gGg.."'''
+app.config['MAIL_PASSWORD'] = "43552114gGg.."
 
 
 
@@ -1337,9 +1337,9 @@ def canvipwd():
     return render_template('canvipwd.html')
 
 
-def send_quickly(app, msg):
+'''def send_quickly(app, msg):
     with app.app_context():
-        mail.send(msg)
+        mail.send(msg)'''
  
 def send_mail(account):
     token = get_token()
@@ -1353,12 +1353,15 @@ def send_mail(account):
 
     Si no has pedido cambiar la contraseña, ignora este mensaje'''
 
-    send=Thread(target=send_quickly, args=(app, msg))
-    send.start()
+    '''send=Thread(target=send_quickly, args=(app, msg))
+    send.start()'''
+
+    mail.send(msg)
+    print('mail enviat2')
     
     
 
-def get_token(expires_sec=28800):
+def get_token(expires_sec=3600):
     serial=Serializer(app.config['SECRET_KEY'], expires_in = expires_sec)
     return serial.dumps({'user_id': account[0]}).decode('utf-8')
     
@@ -1396,8 +1399,7 @@ def pwdrecovery():
             get_token()
             send_mail(account)
             print('mail enviat')
-            flash('Revisa la bandeja de entrada (o la carpeta de spam). El mail puede tardar unos minutos')
-            flash('Si no lo recibes, contactanos en yahabla@yahabla.com y te lo enviaremos lo antes posible')
+            flash('Revisa la bandeja de entrada (o la carpeta de spam)')
         else:
             flash('Este email no está registrado')
     return render_template('pwdrecovery.html')
