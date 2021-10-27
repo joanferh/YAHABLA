@@ -64,7 +64,6 @@ mail.init_app(app)
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
-    flash('El archivo no puede pesar más de 5mb')
     return 'El tamaño del archivo no puede pasar los 5mb. Vuelve atrás y selecciona uno más pequeño, por favor', 413
 
 
