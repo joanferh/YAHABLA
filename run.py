@@ -1126,25 +1126,25 @@ def uploadphoto():
             print(imgresize.size)
 
             #image size
-            size=(300,300)
+            '''size=(300,300)
             #resize image
             imgresize.thumbnail(size, Image.ANTIALIAS)
-            '''out = imgresize.resize(size)'''
+
             #save resized image
             data = str(datetime.now())
             fotosegura= secure_filename(data + '_' + foto.filename)
-            imgresize.save(os.path.join(UPLOAD_FOLDER_IMG,fotosegura))
+            imgresize.save(os.path.join(UPLOAD_FOLDER_IMG,fotosegura))'''
 
 
-
-
-            '''#renombrem l'arxiu original sumant-li el temps de creació (en segons) perquè tingui un nom únic
+            basewidth = 250
+            img = Image.open(foto)
+            wpercent = (basewidth/float(img.size[0]))
+            hsize = int((float(img.size[1])*float(wpercent)))
+            img = img.resize((basewidth,hsize), Image.ANTIALIAS)
             data = str(datetime.now())
-            fotosegura = secure_filename(data + '_' + foto.filename)
-            
-            print(foto.filename)
-            print(foto)
-            foto.save(os.path.join(UPLOAD_FOLDER_IMG,fotosegura))'''
+            fotosegura= secure_filename(data + '_' + foto.filename)
+            img.save(os.path.join(UPLOAD_FOLDER_IMG,fotosegura))
+
 
             #després aconseguim les dades del nen
             con = connectDatabase()

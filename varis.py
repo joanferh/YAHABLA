@@ -21,6 +21,16 @@ con.close()'''
 from flask import Flask, render_template, request, redirect, url_for, flash
 import random
 
+<style>
+    .footer {
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: white;
+    }   
+</style>
 
 
 app = Flask(__name__)
