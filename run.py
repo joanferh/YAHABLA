@@ -393,8 +393,8 @@ def editar(id):
         editar = cursor.fetchall()
         #print(editar)
         editar = editar[0]
-        quevoldir = editar[1]
-        quediu = editar[2]
+        quevoldir = editar[2]
+        quediu = editar[1]
         arxiu = editar[3]
         #sql = "INSERT INTO diccionari (quediu, quevoldir, arxiu) VALUES ('{0}','{1}','{2}')".format(quediu, quevoldir, arxiusegur)
         #sql = "CREATE TABLE novaprova (nova VARCHAR(200), prova VARCHAR(200))"
