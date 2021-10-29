@@ -614,6 +614,7 @@ def jugant():
 
         if request.method == 'POST':
             quevoldir = request.form['quevoldir'].capitalize().strip()
+            quevoldir= quevoldir.replace("'","´") 
             print(quevoldir)
             #quevoldir=quevoldir.replace(' ',('_'))
             marcador = request.form['marcador']
