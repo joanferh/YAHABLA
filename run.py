@@ -593,6 +593,7 @@ def joc():
         marcador = 0
         compteenrere = 5
         diccionarisenserepetits.append(aleatori)
+        print(diccionarisenserepetits)
         print(marcador)
         print(compteenrere)
 
@@ -603,93 +604,97 @@ def joc():
 @app.route('/joc', methods=['POST'])
 def jugant():
     if 'loggedin' in session:
+        try:
 
-        #nom del nen
-        con = connectDatabase()
-        cursor = con.cursor()
-        sql = "SELECT * FROM infokid WHERE id_kid = '{0}' ".format(session['id']) 
-        cursor.execute(sql)
-        nomnen = cursor.fetchone()
-        con.close()
+            #nom del nen
+            con = connectDatabase()
+            cursor = con.cursor()
+            sql = "SELECT * FROM infokid WHERE id_kid = '{0}' ".format(session['id']) 
+            cursor.execute(sql)
+            nomnen = cursor.fetchone()
+            con.close()
 
-        if request.method == 'POST':
-            quevoldir = request.form['quevoldir'].capitalize().strip()
-            quevoldir= quevoldir.replace("'","´") 
-            print(quevoldir)
-            #quevoldir=quevoldir.replace(' ',('_'))
-            marcador = request.form['marcador']
-            compteenrere = request.form['compteenrere']
-            aleatori = request.form['aleatori']
-            
-        #print(marcador)
-        #print(compteenrere
-        #diccionarisenserepetits.append(aleatori)
-        llistanomsbons = []
-        diccionarideltxt = {}
-        
-
-
-        con = connectDatabase()
-        cursor = con.cursor()
-        sql = "SELECT quevoldir FROM diccionari WHERE id_usuari = '{0}' and quediu = '{1}' ".format(session['id'], aleatori) 
-        cursor.execute(sql)
-        respostacorrecta = cursor.fetchone()
-        con.close()
-        #print(respostacorrecta[0])
-
-    
-
-        con = connectDatabase()
-        cursor = con.cursor()
-        sql = "SELECT * FROM diccionari WHERE id_usuari = '{0}' ".format(session['id']) 
-        cursor.execute(sql)
-        definicions = cursor.fetchall()
-        con.close()
-
-        for definicio in definicions:
-            #print(definicio[1])
-            diccionarideltxt[definicio[1]] = definicio[3]
-            llistanomsbons.append(definicio[2])
-        #print(llistanomsmarti)  
-        #print(diccionarideltxt)
-        llistanomsmarti = list(diccionarideltxt.keys())
-        #llistaarxius = list(diccionarideltxt.values())
-        totalparaules = len(llistanomsmarti)
-
-        #print(llistanomsbons)
-        #print(llistaquevoldir)
-
-        if quevoldir == respostacorrecta[0]:
-            print(quevoldir)
-            print(respostacorrecta[0])
-            print('Correcte!')
-            flash('¡Correcto!')
-            marcador = int(marcador) + 1
-        else:
-            print('No és correcte!')
-            flash('¡No es correcto!')
-
-        compteenrere = int(compteenrere) - 1    
-        
-        
-        validacio = False
-
-        while validacio == False:
-            aleatori = random.choice(llistanomsmarti)
-            if aleatori in diccionarisenserepetits:
-                validacio = False
-            else:
+            if request.method == 'POST':
+                quevoldir = request.form['quevoldir'].capitalize().strip()
+                quevoldir= quevoldir.replace("'","´") 
+                print(quevoldir)
+                #quevoldir=quevoldir.replace(' ',('_'))
+                marcador = request.form['marcador']
+                compteenrere = request.form['compteenrere']
+                aleatori = request.form['aleatori']
                 
-                diccionarisenserepetits.append(aleatori)
-                print(diccionarisenserepetits)
-                validacio = True
-        print(marcador)    
-        print(compteenrere)
-        if aleatori in diccionarideltxt:
-            arxiualeatori = diccionarideltxt[aleatori]
-        print(arxiualeatori)
+            #print(marcador)
+            #print(compteenrere
+            #diccionarisenserepetits.append(aleatori)
+            llistanomsbons = []
+            diccionarideltxt = {}
+            
+
+
+            con = connectDatabase()
+            cursor = con.cursor()
+            sql = "SELECT quevoldir FROM diccionari WHERE id_usuari = '{0}' and quediu = '{1}' ".format(session['id'], aleatori) 
+            cursor.execute(sql)
+            respostacorrecta = cursor.fetchone()
+            con.close()
+            #print(respostacorrecta[0])
+
         
-        return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
+
+            con = connectDatabase()
+            cursor = con.cursor()
+            sql = "SELECT * FROM diccionari WHERE id_usuari = '{0}' ".format(session['id']) 
+            cursor.execute(sql)
+            definicions = cursor.fetchall()
+            con.close()
+
+            for definicio in definicions:
+                #print(definicio[1])
+                diccionarideltxt[definicio[1]] = definicio[3]
+                llistanomsbons.append(definicio[2])
+            #print(llistanomsmarti)  
+            #print(diccionarideltxt)
+            llistanomsmarti = list(diccionarideltxt.keys())
+            #llistaarxius = list(diccionarideltxt.values())
+            totalparaules = len(llistanomsmarti)
+
+            #print(llistanomsbons)
+            #print(llistaquevoldir)
+
+            if quevoldir == respostacorrecta[0]:
+                print(quevoldir)
+                print(respostacorrecta[0])
+                print('Correcte!')
+                flash('¡Correcto!')
+                marcador = int(marcador) + 1
+            else:
+                print('No és correcte!')
+                flash('¡No es correcto!')
+
+            compteenrere = int(compteenrere) - 1    
+            
+            
+            validacio = False
+
+            while validacio == False:
+                aleatori = random.choice(llistanomsmarti)
+                if aleatori in diccionarisenserepetits:
+                    validacio = False
+                else:
+                    
+                    diccionarisenserepetits.append(aleatori)
+                    print(diccionarisenserepetits)
+                    validacio = True
+            print(marcador)    
+            print(compteenrere)
+            if aleatori in diccionarideltxt:
+                arxiualeatori = diccionarideltxt[aleatori]
+            print(arxiualeatori)
+            
+            return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
+
+        except:
+            return render_template('404.html')
 
     return redirect(url_for ('login'))
 
@@ -1499,3 +1504,6 @@ def reset_token(token):
 
     return render_template('resetpwd.html')
 
+@app.route('/404')
+def error():
+    return render_template('404.html')
