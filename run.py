@@ -579,13 +579,13 @@ def joc():
     if 'loggedin' in session:
 
         try:
-            #nom del nen
+            '''#nom del nen
             con = connectDatabase()
             cursor = con.cursor()
             sql = "SELECT * FROM infokid WHERE id_kid = '{0}' ".format(session['id']) 
             cursor.execute(sql)
             nomnen = cursor.fetchone()
-            con.close()
+            con.close()'''
 
             con = connectDatabase()
             cursor = con.cursor()
@@ -648,13 +648,13 @@ def jugant():
     if 'loggedin' in session:
         try:
 
-            #nom del nen
+            '''#nom del nen
             con = connectDatabase()
             cursor = con.cursor()
             sql = "SELECT * FROM infokid WHERE id_kid = '{0}' ".format(session['id']) 
             cursor.execute(sql)
             nomnen = cursor.fetchone()
-            con.close()
+            con.close()'''
 
             if request.method == 'POST':
                 quevoldir = request.form['quevoldir'].capitalize().strip()
