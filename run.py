@@ -639,7 +639,7 @@ def joc():
             
             return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
         except:
-            return render_template('404.html')
+            return render_template('404joc.html')
     
     return redirect(url_for ('login'))
 
@@ -736,7 +736,7 @@ def jugant():
             return render_template('joc.html', aleatori=aleatori, arxiualeatori=arxiualeatori, marcador=marcador, compteenrere=compteenrere, totalparaules=totalparaules)
 
         except:
-            return render_template('404.html')
+            return render_template('404joc.html')
 
     return redirect(url_for ('login'))
 
@@ -1458,7 +1458,6 @@ def send_mail(account):
 
     mail.send(msg)
     print('mail enviat2')
-    
     
 
 def get_token(expires_sec=3600):
