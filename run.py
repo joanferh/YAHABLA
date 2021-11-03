@@ -54,7 +54,7 @@ app.config['MAIL_SERVER'] = "smtp.ionos.es"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = "yahabla@yahabla.com"
-app.config['MAIL_PASSWORD'] = "43552114gGg.."
+app.config['MAIL_PASSWORD'] = "43552114gGg."
 
 
 
@@ -1508,7 +1508,7 @@ def pwdrecovery():
         return render_template('pwdrecovery.html')
 
     except:
-        return render_template('404.html')
+        return render_template('404noregister.html')
 
 @app.route('/pwdrecovery/<token>', methods=['GET','POST'])
 def reset_token(token):
