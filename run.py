@@ -767,6 +767,7 @@ def calaix():
                     arxiu.save(os.path.join(app.config['UPLOAD_FOLDER'],arxiusegur))
                     
                     descripcio = request.form['descripcio'].capitalize().strip()
+                    descripcio = descripcio.replace("'","´") 
 
                     con = connectDatabase()
                     cursor = con.cursor()
