@@ -191,7 +191,7 @@ def afegir():
 
     if 'loggedin' in session:
 
-        try:
+        #try:
             if request.method == 'POST':
 
                 if 'audio' not in request.files:
@@ -212,28 +212,13 @@ def afegir():
 
                     con = connectDatabase()
                     cursor = con.cursor()
-                    sql = "INSERT INTO diccionari (quediu, quevoldir, id_usuari) VALUES ('{0}','{1}', '{2}')".format(quediu, quevoldir, session['id'])
+                    sql = "INSERT INTO diccionari (quediu, quevoldir, id_usuari) VALUES ('{0}','{1}','{2}')".format(quediu, quevoldir, session['id'])
                     #sql = "CREATE TABLE novaprova (nova VARCHAR(200), prova VARCHAR(200))"
                     print(sql)
                     cursor.execute(sql)
                     print(cursor)
                     con.commit()
                     con.close()
-
-                    '''conn = mysql.connect() 
-                    cursor = mysql.get_db().cursor()
-                    cursor.execute(INSERT INTO diccionari (quediu, quevoldir) VALUES (%s, %s),(quediu, quevoldir))
-                                                    
-                    conn.commit()
-                    cursor.close()'''
-                    
-                    '''diccionari= open('diccionari.txt', 'a')
-                    diccionari.write(quevoldir + ';' + quediu + ';' + '_' + '\n')
-                    diccionari.close()
-                    print(quediu)
-                    print(quevoldir)'''
-
-
 
                     flash('Palabra añadida '+ ' ' + quediu + ': '+ quevoldir + '. Sin audio')
                     #print(arxiu.filename)
@@ -256,17 +241,15 @@ def afegir():
                     
                     print(arxiu.filename)
                     print(arxiusegur)
-                    arxiu.save(os.path.join(UPLOAD_FOLDER,arxiusegur))
 
-                    #rennombre l'arxiu segur original sumant-li el temps de creació (en segons) perquè tingui un nom únic
-                    '''arxiusensetemps = './audios/arxiusegur'
-                    print(arxiusensetemps)
-                    arxiuambtemps = arxiusegur + os.path.getctime('./audios/arxiusegur')
-                    os.rename(arxiusensetemps,arxiuambtemps)'''
+                    #creem una carpeta per guardar arxius per cada ID (si existeix, no la creem, només guardem l'arxiu)
+                    idok=str(session['id'])
+                    path = os.path.join(UPLOAD_FOLDER, idok)
+                    if os.path.exists(path) == False:
+                        os.makedirs(path)
+                    arxiu.save(os.path.join(path,arxiusegur))
 
-                    
-
-
+                    #guardem les dades a la base de dades
                     con = connectDatabase()
                     cursor = con.cursor()
                     sql = "INSERT INTO diccionari (quediu, quevoldir, arxiu, id_usuari) VALUES ('{0}','{1}','{2}','{3}')".format(quediu, quevoldir, arxiusegur, session['id'])
@@ -274,13 +257,7 @@ def afegir():
                     cursor.execute(sql)
                     con.commit()
                     con.close()
-                    
-                    '''quediu=quediu.replace(' ',('_'))
-                    quevoldir=quevoldir.replace(' ',('_'))
-                    diccionari= open('diccionari.txt', 'a')
-                    diccionari.write(quevoldir + ';' + quediu + ';' + arxiusegur + '\n')
-                    diccionari.close()'''
-
+                
                     print(quediu)
                     print(quevoldir)
                     flash('Palabra y audio añadidos '+ ' ' + quediu + ': '+ quevoldir)
@@ -299,7 +276,7 @@ def afegir():
                 
             return redirect(url_for('formulari'))
 
-        except:
+        #except:
             return render_template('404.html')
 
     return redirect(url_for ('login'))
@@ -308,7 +285,9 @@ def afegir():
 def get_file(arxiusegur):
     if 'loggedin' in session:
         try:
-            return send_from_directory(UPLOAD_FOLDER, arxiusegur)
+            idok=str(session['id'])
+            path = os.path.join(UPLOAD_FOLDER, idok)
+            return send_from_directory(path, arxiusegur)
             #return send_from_directory("../yahabla/audios", arxiusegur)
         except:
             return render_template('404.html')
@@ -376,14 +355,13 @@ def eliminar(id):
 
             #esborrar l'arxiu de la carpeta 'audios'
             # File location
-            '''location = "audios"'''
             # Path
             if id4 != '':
-                path = os.path.join(UPLOAD_FOLDER, id4)
-                # Remove the file
-                # 'file.txt'
-                os.remove(path)
 
+                idok=str(session['id'])
+                path = os.path.join(UPLOAD_FOLDER, idok, id4)
+                # Remove the file
+                os.remove(path)
             
             con = connectDatabase()
             cursor = con.cursor()
@@ -490,13 +468,25 @@ def actualitzar(id):
                     return redirect(url_for('consultar'))
                 
                 if arxiu and allowed_file(arxiu.filename):
+                    
                     #renombrem l'arxiu original sumant-li el temps de creació (en segons) perquè tingui un nom únic
+                    quediu = request.form['quediu'].capitalize().strip()
+                    quevoldir = request.form['quevoldir'].capitalize().strip()
+                    quediu = quediu.replace("'","´") 
+                    quevoldir = quevoldir.replace("'","´") 
                     data = str(datetime.now())
-                    arxiusegur = secure_filename(data + '_' + arxiu.filename)
+                    arxiusegur = secure_filename(quediu + '_' + quevoldir + '_' + data + '_' + arxiu.filename)
                     
                     #print(arxiu.filename)
                     #print(arxiusegur)
-                    arxiu.save(os.path.join(app.config['UPLOAD_FOLDER'],arxiusegur))
+
+                    #creem una carpeta per guardar arxius per cada ID (si existeix, no la creem, només guardem l'arxiu)
+                    idok=str(session['id'])
+                    path = os.path.join(UPLOAD_FOLDER, idok)
+                    if os.path.exists(path) == False:
+                        os.makedirs(path)
+                    arxiu.save(os.path.join(path,arxiusegur))
+
                     
                     quediu = request.form['quediu'].capitalize().strip()
                     quevoldir = request.form['quevoldir'].capitalize().strip()
@@ -553,11 +543,11 @@ def eliminaraudio(id):
             con.commit()
             con.close()
         
-            #esborrar l'arxiu de la carpeta 'audios'
+            #esborrar l'arxiu de la carpeta 'audios'/idok
             # File location
-            '''location = "audios"'''
             # Path
-            path = os.path.join(UPLOAD_FOLDER, id)
+            idok=str(session['id'])
+            path = os.path.join(UPLOAD_FOLDER, idok, id)
             # Remove the file
             os.remove(path)
             
@@ -1221,8 +1211,9 @@ def uploadphoto():
                     wpercent = (basewidth/float(img.size[0]))
                     hsize = int((float(img.size[1])*float(wpercent)))
                     img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+                    idok=str(session['id'])
                     data = str(datetime.now())
-                    fotosegura= secure_filename(data + '_' + foto.filename)
+                    fotosegura= secure_filename(idok + '_' + data + '_' + foto.filename)
                     img.save(os.path.join(UPLOAD_FOLDER_IMG,fotosegura))
 
 
