@@ -752,9 +752,12 @@ def calaix():
                     data = str(datetime.now())
                     arxiusegur = secure_filename(data + '_' + arxiu.filename)
 
-                    print(arxiu.filename)
-                    print(arxiusegur)
-                    arxiu.save(os.path.join(app.config['UPLOAD_FOLDER'],arxiusegur))
+                    #creem una carpeta per guardar arxius per cada ID (si existeix, no la creem, només guardem l'arxiu)
+                    idok=str(session['id'])
+                    path = os.path.join(UPLOAD_FOLDER, idok)
+                    if os.path.exists(path) == False:
+                        os.makedirs(path)
+                    arxiu.save(os.path.join(path,arxiusegur))
                     
                     descripcio = request.form['descripcio'].capitalize().strip()
                     descripcio = descripcio.replace("'","´") 
@@ -852,9 +855,9 @@ def eliminarcalaix(id):
             '''location = "audios"'''
             # Path
             if id4 != '':
-                path = os.path.join(UPLOAD_FOLDER, id4)
+                idok=str(session['id'])
+                path = os.path.join(UPLOAD_FOLDER, idok, id4)
                 # Remove the file
-                # 'file.txt'
                 os.remove(path)
             
             con = connectDatabase()
