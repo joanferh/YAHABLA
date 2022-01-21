@@ -7,6 +7,12 @@ Username: sql11440739
 Password: Yv3qDs7JI4
 Port number: 3306
 
+Server: sql11.freemysqlhosting.net
+Name: sql11467066
+Username: sql11467066
+Password: vm9EyhgxEx
+Port number: 3306
+
 ''' if nomnen != "":
 kidname = request.form['kidname'].capitalize()
 con = connectDatabase()

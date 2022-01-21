@@ -20,7 +20,7 @@ from PIL import Image
 import smtplib
 
 
-#import itertools
+
 
 def connectDatabase():
     return pymysql.connect(host='localhost', user = 'root', password = '', database = 'diccionari')
