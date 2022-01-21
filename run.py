@@ -20,12 +20,11 @@ from PIL import Image
 import smtplib
 
 
-
 #import itertools
 
 def connectDatabase():
     return pymysql.connect(host='localhost', user = 'root', password = '', database = 'diccionari')
-    '''return pymysql.connect(host='sql11.freemysqlhosting.net', user = 'sql11440739', password = 'Yv3qDs7JI4', database = 'sql11440739')'''
+    '''return pymysql.connect(host='sql11.freemysqlhosting.net', user = 'sql11467066', password = 'vm9EyhgxEx', database = 'sql11467066')'''
 
 
 UPLOAD_FOLDER = './audios'
